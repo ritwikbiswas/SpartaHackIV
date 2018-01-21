@@ -1,11 +1,9 @@
 from firebase import firebase
-#import RPi.GPIO as GPIO
+import RPi.GPIO as GPIO
 import time
 from random import randint
 
 chan = 15
-
-# GPIO.setup(chan, GPIO.out)
 
 minbank = ['minute', 'minutes']
 secbank = ['second', 'seconds']
@@ -16,15 +14,12 @@ barbank = ["Ricks", "Lou Has", "Dublin", "Harpers", "Tin Can", "The Riv", "Paddy
 endbank = [", of course. ", ", I heard that's a lot of fun! "]
 
 def start(c=chan, t=1):
-    pass
-    '''
     GPIO.setmode(GPIO.BCM)
     GPIO.setup(c,GPIO.OUT)
     GPIO.output(c,GPIO.HIGH)
     time.sleep(t)
     GPIO.output(c, GPIO.LOW)
     GPIO.cleanup()
-    '''
 
 def button(r, listen):
     minute = 0
