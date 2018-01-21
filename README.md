@@ -21,5 +21,5 @@ The backend consists of a rasberry pi with a continuos python script that listen
 
 We use the GPIO output in the rasberry pi to control a single channel relay that opens and closes the blender's circuit to turn it on and off. We allow variable blending times and we would want to add a pulse feature as a next step.
 
-#Authors
+# Authors
 Greg Margosian, Chris Bell, Ritwik Biswas
