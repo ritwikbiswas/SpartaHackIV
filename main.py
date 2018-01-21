@@ -1,6 +1,7 @@
 from firebase import firebase
-import RPi.GPIO as GPIO
+#import RPi.GPIO as GPIO
 import time
+from random import randint
 
 chan = 15
 
@@ -10,15 +11,20 @@ minbank = ['minute', 'minutes']
 secbank = ['second', 'seconds']
 
 fb = firebase.FirebaseApplication('https://voice-recognition-spartahacks.firebaseio.com/', None)
+barbank = ["Ricks", "Lou Has", "Dublin", "Harpers", "Tin Can", "The Riv", "Paddy's Pub"]
+
+endbank = [", of course. ", ", I heard that's a lot of fun! "]
 
 def start(c=chan, t=1):
+    pass
+    '''
     GPIO.setmode(GPIO.BCM)
     GPIO.setup(c,GPIO.OUT)
     GPIO.output(c,GPIO.HIGH)
     time.sleep(t)
     GPIO.output(c, GPIO.LOW)
     GPIO.cleanup()
-
+    '''
 
 def button(r, listen):
     minute = 0
@@ -103,12 +109,28 @@ def button(r, listen):
             time.sleep(3)
             start(chan, 60*minute+second)
             return None
-    if 'stop' in rbank:
-        #GPIO.output(15, GPIO.LOW)
-        GPIO.cleanup()
-        fb.post('/voice', "Stopped.")
-        print("Stopped. \n")
-        return None
+    elif 'hungry' in rbank:
+        fb.post('/voice', "Just say, 'Start the blender' and a time!")
+        print("Just say, 'Start the blender' and a time! \n".format(minute, second))
+    elif 'bars' in rbank or 'bar' in rbank:
+        fb.post('/voice', "{}{}".format(barbank[randint(0,len(barbank)-1)], endbank[randint(0,len(endbank)-1)]))
+        print("{}{} \n".format(barbank[randint(0,len(barbank)-1)], endbank[randint(0,len(endbank)-1)]))
+    elif 'purpose' in rbank:
+        fb.post('/voice', "I blend things you idiot. I know you can control me with your voice but at least use your "
+                          "eyes.")
+        print("I blend things you idiot. I know you can control me with your voice but at least use your "
+                          "eyes. \n")
+    elif 'lonely' in rbank:
+        fb.post('/voice', "I would play you a sad song, but I'm just a blender. ")
+        print("I would play you a sad song, but I'm just a blender.  \n")
+    elif 'hey' in rbank and 'blender' in rbank:
+        fb.post('/voice', "What's up?")
+        print("What's up? \n")
+    elif 'joke' in rbank:
+        fb.post('/voice', "Knock Knock. Who's there? Blender. Blender who? You blender start putting fruit in me before "
+                          "I make you a human smoothie.")
+        print("Knock Knock. Who's there? Blender. Blender who? You blender start putting fruit in me before "
+                          "I make you a human smoothie. \n")
     else:
         fb.post('/voice', "Sorry, I didn't understand. Please try again.")
         print("Sorry, I didn't understand. Please try again. \n")
