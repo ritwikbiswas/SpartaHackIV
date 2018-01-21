@@ -20,3 +20,6 @@ The front end utilizes the p5.js speech recognition library to take user input v
 The backend consists of a rasberry pi with a continuos python script that listens for changes in the firebase database to process user input commands. We utilize a word bank of key words that are relevant for blender commands to actuate a text response and a blender command. 
 
 We use the GPIO output in the rasberry pi to control a single channel relay that opens and closes the blender's circuit to turn it on and off. We allow variable blending times and we would want to add a pulse feature as a next step.
+
+#Authors
+Greg Margosian, Chris Bell, Ritwik Biswas
