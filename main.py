@@ -68,6 +68,7 @@ def button(r, listen):
             else:
                 fb.post('/voice', "Alright. Starting blender for {} seconds.".format(second))
                 print("Alright. Starting blender for {} seconds. \n".format(second))
+            time.sleep(3)
             start(chan, 60*minute+second)
             return None
         if not second:
@@ -77,6 +78,7 @@ def button(r, listen):
             else:
                 fb.post('/voice', "Alright. Starting blender for {} minutes.".format(minute))
                 print("Alright. Starting blender for {} minutes. \n".format(minute))
+            time.sleep(3)
             start(chan, 60*minute+second)
             return None
         if minute == 1:
@@ -86,16 +88,19 @@ def button(r, listen):
             else:
                 fb.post('/voice', "Alright. Starting blender for 1 minute and {} seconds.".format(second))
                 print("Alright. Starting blender for 1 minute and {} seconds. \n".format(second))
+            time.sleep(3)
             start(chan, 60*minute+second)
             return None
         if second == 1:
             fb.post('/voice', "Alright. Starting blender for {} minutes and 1 second.".format(minute))
             print("Alright. Starting blender for {} minutes and 1 second. \n".format(minute))
+            time.sleep(3)
             start(chan, 60*minute+second)
             return None
         else:
             fb.post('/voice', "Alright. Starting blender for {} minutes and {} seconds.".format(minute, second))
             print("Alright. Starting blender for {} minutes and {} seconds. \n".format(minute, second))
+            time.sleep(3)
             start(chan, 60*minute+second)
             return None
     if 'stop' in rbank:
