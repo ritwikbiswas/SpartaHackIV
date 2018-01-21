@@ -3,7 +3,7 @@ A Smart Blender built at SpartaHack IV (2018)
 
 # Getting Started
 To use this project you need:
-* Navigate to https://voice-recognition-spartahacks.firebaseapp.com/
+* Navigate to https://mysmartblender.com/
 * Download the python scripts on a rasberry pi and connect a relay to a blender on GPIO port 17
 * Put food in blender and give command
 
