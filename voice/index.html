@@ -1,0 +1,92 @@
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="./index.css">
+     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+     <!-- Compiled and minified CSS -->
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+
+      <!-- Compiled and minified JavaScript -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.4.5/p5.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.9.0/firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.9.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.9.0/firebase-storage.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.9.0/firebase-database.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.4.5/addons/p5.dom.js"></script>
+    <script src="./lib/p5.speech.js"></script>
+   
+</head>
+<body>
+    <div class="container">
+        <div class="row center">
+            <div id='text'></div>
+        </div>
+        <div class="row center_1" id="loader">
+              <div class="progress" >
+                  <div class="indeterminate"></div>
+              </div>
+        </div>
+        <div class="row center_1">
+            <a class="btn-floating btn-large waves-effect waves-light blue" value="New " onClick="window.location.reload()"><i class="material-icons">mic</i></a>
+        </div>
+        
+        <!--<input type="button" value="New " onClick="window.location.reload()">-->
+    </div>
+
+</body>
+ <script>
+        //firebase initializing component
+        var config = {
+          apiKey: "AIzaSyAEryCzgrtQv7WuLM8j5oqmyuBCG7WzpMQ",
+          authDomain: "voice-recognition-spartahacks.firebaseapp.com",
+          databaseURL: "https://voice-recognition-spartahacks.firebaseio.com"
+        };
+
+        firebase.initializeApp(config);
+        var rootRef = firebase.database().ref();
+        
+        //initialize p5 sppech input and output
+        var speech_rec = new p5.SpeechRec(); // speech recognition object (will prompt for mic access)
+        var speech_out = new p5.Speech(); // speech synthesis object
+        speech_rec.onResult = showResult; // bind callback function to trigger when speech is recognized
+        speech_rec.start(); // start listening
+        var text = document.querySelector("#text");
+        var loader = document.querySelector("#loader");
+
+        //firebase function write a text input
+        function writeUserData(input) {
+          firebase.database().ref().set({
+            text: input,
+          });
+        }
+
+        //take in speech
+        function showResult()
+        {
+          console.log(speech_rec.resultString); // log the result
+          var output_string = `<h2>${speech_rec.resultString}</h2>`
+          speech_rec.resultString === undefined 
+          ? text.innerHTML = '<h2>Listening</h2>'
+          : text.innerHTML = output_string
+
+          speech_rec.resultString === undefined 
+          ? loader.innerHTML = 
+            '<div class="progress" ><div class="indeterminate"></div></div>'
+          : loader.innerHTML = '<i style="font-size: 30px"class="material-icons green-text text-darken-4">check</i>'
+
+          writeUserData(speech_rec.resultString)
+          var starCountRef = firebase.database().ref('/voice');;
+          var temp;
+          starCountRef.on('value', function(snapshot) {
+            temp = Object.entries(snapshot.val())[0]
+            // console.log(temp[1]);
+            speech_out.speak(temp[1])
+          });
+          
+
+
+        }
+
+        showResult()
+    </script>
+</html>
