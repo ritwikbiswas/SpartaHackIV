@@ -1,4 +1,4 @@
-# SpartaHackIV
+# Smart Blender
 A Smart Blender built at SpartaHack IV (2018)
 
 # Getting Started
