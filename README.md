@@ -1,5 +1,5 @@
 # Smart Blender
-A Smart Blender built at SpartaHack IV (2018)
+A Smart Blender built at SpartaHack IV [Won awards:  Best IoT Hack Using A Qualcomm Device, First-Time Hacker Prize]
 
 # Getting Started
 To use this project you need:
